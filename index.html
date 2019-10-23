@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body onload="init()">
+
+    <div class="modal">
+        <div class="modal-container">
+            <canvas class="canvas" width=95% height=40%></canvas>
+            <div class="mame-creator "></div>
+        </div>
+        <div class="details ">
+            <div class="img "></div>
+            <h3 class="about "></h3>
+            <div class="rate ">
+
+            </div>
+        </div>
+
+    </div>
+    <header>
+        <div class="screen " onclick="toggleMenu() "></div>
+        <nav class="container clean-list flex align-center ">
+            <div class="mainMenu flex align-center ">
+                <img src="img/logo/1.png " class="logo ">
+                <button id="menu-btn " class="menu-btn " onclick="toggleMenu() ">☰</button>
+                <ul class="main-menu clean-list flex align-center ">
+                    <li>
+                        <a href="# ">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="# ">About</a>
+                    </li>
+                </ul>
+            </div>
+            <section class="nav-bar flex align-center ">
+                <div><input type="search " class="search " placeholder="Enter search keyword "> <img class="search-icon " src="ICONS/search-icon.png "></div>
+                <ul class="keywords clean-list flex align-center ">
+                    <li class="funny ">funny</li>
+                    <li class="comics ">comics</li>
+                    <li class="dogs ">dogs</li>
+                </ul>
+            </section>
+        </nav>
+
+    </header>
+
+    <body>
+
+        <main class="img-container ">
+
+        </main>
+        <section>
+
+            <div class="about-me team-member flex align-center ">
+                <img class="mx-auto rounded-circle " src="img/me/2.jpg " alt=" ">
+                <h4 class="myName ">Artyom Pogosov</h4>
+                <div class="flex-align-center ">
+                    <p class="large text-muted about-description ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam
+                        veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                </div>
+                <ul class="list-inline social-buttons ">
+                    <li class="list-inline-item ">
+                        <a href="https://www.facebook.com/pogosov ">
+                            <i class="fa fa-facebook "></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item ">
+                        <a href="https://www.linkedin.com/in/artyom-pogosov-23602189/ ">
+                            <i class="fa fa-linkedin "></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item ">
+                        <a href="https://github.com/artyomP1?tab=repositories "><i class="fa fa-github "></i></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </body>
+    <footer class="footer ">
+        <ul class="clean-list flex align-center ">
+            <li class="footer-logo "><img src="img/logo/1.png "></li>
+            <li class="rights ">All rights reserved 2019</li>
+        </ul>
+    </footer>
+    <script src="js/main.js "></script>
+    <script src="js/memeService.js "></script>
+</body>
+
+</html>
