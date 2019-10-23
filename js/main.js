@@ -7,7 +7,7 @@ function renderImgMemes(imgs) {
     let imagesHTMLs = '';
     imagesHTMLs = imgs.map(function(img) {
         return `<div
-             onclick="onModalmeme('${img.id}')" class="img " data-id="${img.id}" >
+             onclick="onModalmeme('${img.url}')" class="img " data-id="${img.id}" >
                 <img class="img-fluid" src="${img.url}" alt="">
                 </div>
         </div>`;
@@ -23,15 +23,18 @@ function toggleMenu() {
     document.body.classList.toggle('open-menu');
 }
 
-function onModalmeme(imgId) {
-    console.log(imgId)
+function onModalmeme(imgUrl) {
+
     let elImgContainer = document.querySelector('.img-container');
     elImgContainer.style.display = 'none';
-    let img = findCurrImg(imgId);
+    // let img = findCurrImg(imgId);
+    // console.log(img)
     let background = new Image();
-    background.src = img.url;
-    console.log(img)
-    gCtx.drawImage(background, 0, 0)
+    background.src = imgUrl;
+    // console.log(img)
+    background.onload = () => {
+        gCtx.drawImage(background, 0, 0);
+    };
 
     let elModal = document.querySelector('.modal');
     elModal.style.display = 'initial';
