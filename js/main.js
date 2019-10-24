@@ -12,10 +12,8 @@ function renderImgMemes(imgs) {
                 </div>
         </div>`;
     });
-
     let elImgsContainer = document.querySelector('.img-container');
     elImgsContainer.innerHTML = imagesHTMLs.join('');
-
 }
 
 
@@ -27,27 +25,18 @@ function onModalmeme(imgUrl, imgId) {
     addImageId(imgId)
     let elModal = document.querySelector('.modal');
     elModal.style.display = 'flex';
-    // elModal.classList.toggle('flex-modal');
     let elImgContainer = document.querySelector('.img-container');
     elImgContainer.style.display = 'none';
-    // let elAboutMe = document.querySelector('.mx-auto');
-    // elAboutMe.style.display = 'none';
-
     let elModalCanvas = document.querySelector('.modal-container');
-    // let img = findCurrImg(imgId);
-    // console.log(img)
-
     let image = new Image();
     image.width = elModalCanvas.offsetWidth;
     image.height = elModalCanvas.offsetHeight;
     gCanvas.width = elModalCanvas.offsetWidth;
-    // gCanvas.height = elModalCanvas.offsetHeight;
     image.src = imgUrl;
     image.onload = () => {
         gCtx.drawImage(image, 0, 0, image.width, image.height);
         return;
     };
-
 }
 
 function addTextToCanvas(txtMeme, selectedTxtIdx, fontSize) {
@@ -67,7 +56,6 @@ function addTextToCanvas(txtMeme, selectedTxtIdx, fontSize) {
 function editTxtOnCanvas(gMeme, ImgUrl) {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     onModalmeme(ImgUrl, gMeme.selectedImgId)
-    console.log(gMeme.txts[0]);
     setTimeout(function() {
         addTextToCanvas(gMeme.txts[0], 0, gMeme.txts[0].size)
         addTextToCanvas(gMeme.txts[1], 1, gMeme.txts[0].size)
@@ -87,14 +75,14 @@ function closeMemeEditor() {
 
 function addTextInput() {
     let elTxtLine = document.querySelector('.text-line');
-    console.log(elTxtLine);
     addTxtLine(elTxtLine.value);
     elTxtLine.value = '';
 
 }
 
-// function resizeCanvas() {
-//     var elContainer = document.querySelector('.canvas-container');
-//     gCanvas.width = elContainer.offsetWidth
-//     gCanvas.height = elContainer.offsetHeight
-// }
+function backTogallery() {
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    closeMemeEditor()
+    let elImgContainer = document.querySelector('.img-container');
+    elImgContainer.style.display = 'grid';
+}

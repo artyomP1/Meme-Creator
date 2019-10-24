@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
@@ -37,11 +35,11 @@
                 <button class="bcg-edit" onclick="alignToRight()"> <img class="btn-edit" src="ICONS/align-to-right.png"></button>
             </div>
             <div class="down-editor-btn">
-                <section>
-                    <option class="inpact">inpact</option>
-                </section>
                 <button class="bcg-edit" onclick="unFillText()"> <img class="btn-edit" src="ICONS/text stroke.png"></button>
-                <button class="bcg-edit"> <img class="btn-edit" src="ICONS/paint-board-and-brush.png"></button>
+                <input onchange="changeColor(this.value)" type="color" class="bcg-edit">
+            </div>
+            <div>
+                <button class="change-image" onclick="backTogallery()">Change Image</button>
             </div>
         </div>
     </div>
@@ -53,7 +51,7 @@
         <nav class="container-nav clean-list flex ">
             <div class="mainMenu flex align-center ">
                 <img src="img/logo/1.png " class="logo ">
-                <button id="menu-btn " class="menu-btn " onclick="toggleMenu() ">☰</button>
+                <!-- <button id="menu-btn " class="menu-btn " onclick="toggleMenu() ">☰</button>
                 <ul class="main-menu clean-list flex align-center ">
                     <li>
                         <a href="# ">Gallery</a>
@@ -61,7 +59,7 @@
                     <li>
                         <a href="# ">About</a>
                     </li>
-                </ul>
+                </ul> -->
             </div>
             <section class="nav-bar flex align-center ">
                 <div><input type="search " class="search " placeholder="Enter search keyword "> <img class="search-icon " src="ICONS/search-icon.png "></div>
@@ -77,7 +75,7 @@
 
     <body>
 
-        <main class="img-container ">
+        <main class="img-container">
 
         </main>
         <section>
@@ -90,21 +88,6 @@
                 <div class="flex-align-center ">
                     <p class="large text-muted about-description ">alias ut unde. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
                 </div>
-                <!-- <ul class="list-inline social-buttons ">
-                    <li class="list-inline-item ">
-                        <a href="https://www.facebook.com/pogosov ">
-                            <i class="fa fa-facebook "></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item ">
-                        <a href="https://www.linkedin.com/in/artyom-pogosov-23602189/ ">
-                            <i class="fa fa-linkedin "></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item ">
-                        <a href="https://github.com/artyomP1?tab=repositories "><i class="fa fa-github "></i></a>
-                    </li>
-                </ul> -->
             </div>
         </section>
     </body>
