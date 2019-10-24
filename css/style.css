@@ -29,7 +29,6 @@
                                         }
                                         
                                         .container-nav {
-                                            width: 100vw;
                                             background-color: #ff7f00;
                                             flex-direction: column;
                                         }
@@ -44,7 +43,7 @@
                                         
                                         section.nav-bar {
                                             font-family: Montserrat;
-                                            height: 100px;
+                                            height: 90px;
                                             background-color: white;
                                             margin: 0;
                                             align-items: center;
@@ -193,7 +192,7 @@
                                         
                                         .main-menu li {
                                             border-bottom: 1px solid rgba(153, 153, 153, 0.5);
-                                            width: 100%;
+                                            /* width: 100%; */
                                         }
                                         
                                         .main-menu a {
@@ -280,6 +279,13 @@
                                             justify-content: center;
                                             align-items: center;
                                             justify-content: space-around;
+                                        }
+                                        
+                                        .sh-dw {
+                                            background-color: #ff7f00;
+                                            color: white;
+                                            border-radius: 10px;
+                                            width: 90px;
                                         }
                                         
                                         @media (min-width: 740px) {

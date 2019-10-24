@@ -8,7 +8,7 @@ function renderImgMemes(imgs) {
     imagesHTMLs = imgs.map(function(img) {
         return `<div
               class="img " data-id="${img.id}" >
-                <img onclick="onModalmeme('${img.url}','${img.id}')" class="img-fluid" src="${img.url}" alt="">
+                <img onclick="onModalMeme('${img.url}','${img.id}')" class="img-fluid" src="${img.url}" alt="">
                 </div>
         </div>`;
     });
@@ -21,7 +21,7 @@ function toggleMenu() {
     document.body.classList.toggle('open-menu');
 }
 
-function onModalmeme(imgUrl, imgId) {
+function onModalMeme(imgUrl, imgId) {
     addImageId(imgId)
     let elModal = document.querySelector('.modal');
     elModal.style.display = 'flex';
@@ -55,7 +55,7 @@ function addTextToCanvas(txtMeme, selectedTxtIdx, fontSize) {
 
 function editTxtOnCanvas(gMeme, ImgUrl) {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    onModalmeme(ImgUrl, gMeme.selectedImgId)
+    onModalMeme(ImgUrl, gMeme.selectedImgId)
     setTimeout(function() {
         addTextToCanvas(gMeme.txts[0], 0, gMeme.txts[0].size)
         addTextToCanvas(gMeme.txts[1], 1, gMeme.txts[0].size)
@@ -75,9 +75,15 @@ function closeMemeEditor() {
 
 function addTextInput() {
     let elTxtLine = document.querySelector('.text-line');
+    if (elTxtLine.value.length === 0) return;
     addTxtLine(elTxtLine.value);
     elTxtLine.value = '';
 
+}
+
+function deleteTxt() {
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    findImgToDell()
 }
 
 function backTogallery() {

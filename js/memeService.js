@@ -12,15 +12,15 @@ function init() {
 
 gMeme = {
     selectedImgId: null,
-    selectedTxtIdx: null,
+    selectedTxtIdx: -1,
     txts: [{
-        line: null,
+        line: '',
         size: 30,
         align: 'left',
         color: 'black',
         isFill: true
     }, {
-        line: null,
+        line: '',
         size: 30,
         align: 'left',
         color: 'black',
@@ -30,35 +30,12 @@ gMeme = {
 
 
 function ctrateImgs() {
-    return [
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-        ctrateImg(1 + gIdxId++, `img/imgmeme/${gIdxId}.jpg`, 'happy'),
-
-    ]
-
+    let images = [];
+    for (let i = 1; i < 26; i++) {
+        let img = ctrateImg(i, `img/imgmeme/${i}.jpg`, 'happy')
+        images.push(img);
+    }
+    return images;
 }
 
 function ctrateImg(id, url, keywords) {
@@ -69,26 +46,27 @@ function ctrateImg(id, url, keywords) {
     }
 }
 
-function findCurrImg(imgId) {
-    let img = gImgs.find(function(img) {
-        return imgId === img.id;
-    });
-    return img;
-}
 
 function addImageId(imgId) {
     gMeme.selectedImgId = +imgId;
 }
 
 function addTxtLine(elTxtLine) {
-    if (gMeme.selectedTxtIdx === null) {
+    if (gMeme.selectedTxtIdx === -1) {
         gMeme.selectedTxtIdx = 0;
         gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
     } else if (gMeme.selectedTxtIdx === 0) {
         gMeme.selectedTxtIdx = 1;
         gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    }
+    } else return;
     addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, gMeme.txts[gMeme.selectedTxtIdx].size)
+}
+
+
+function findCurrImg(image) {
+    return gImgs.filter(function(img) {
+        return img.id === image;
+    });
 }
 
 function switchTextLines() {
@@ -152,9 +130,17 @@ function changeColor(color) {
 
 }
 
+function findImgToDell() {
+    let img = findCurrImage(gMeme.selectedImgId)
+    gMeme.txts[0].line = '';
+    gMeme.txts[0].line = '';
+    gMeme.selectedTxtIdx = -1;
+    onModalMeme(img.url, img.id)
+}
 
-function findCurrImg(image) {
-    return gImgs.filter(function(img) {
-        return img.id === image;
+function findCurrImage(imgId) {
+    let img = gImgs.find(function(img) {
+        return imgId === img.id;
     });
+    return img;
 }
