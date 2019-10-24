@@ -17,22 +17,40 @@
 <body onload="init()">
 
     <div class="modal">
-        <div class="modal-container">
+        <div class="modal-container flex">
             <canvas class="canvas" width="400" height="400"></canvas>
             <div class="mame-creator "></div>
         </div>
-        <div class="details ">
-            <div class="img "></div>
-            <h3 class="about "></h3>
-            <div class="rate ">
-
+        <div class="main-editor">
+            <input class="text-line" type="text" placeholder="Text line">
+            <div class="first-editor-btn">
+                <button class="bcg-edit" onclick="onSwitchTextLines()"> <img class="btn-edit" 
+                        src="ICONS/up-and-down-opposite-double-arrows-side-by-side.png"></button>
+                <button class="bcg-edit"> <img class="btn-edit" onclick="addTextInput()" src="ICONS/add.png"></button>
+                <button class="bcg-edit"> <img class="btn-edit" src="ICONS/trash.png"></button>
+            </div>
+            <div class="mid-editor-btn">
+                <button class="bcg-edit" onclick="increaseFont()"> <img class="btn-edit" src="ICONS/increase font - icon.png"></button>
+                <button class="bcg-edit" onclick="decreaseFont()"> <img class="btn-edit" src="ICONS/decrease font - icon.png"></button>
+                <button class="bcg-edit" onclick="alignToLeft()"> <img class="btn-edit" src="ICONS/align-to-left.png"></button>
+                <button class="bcg-edit" onclick="alignToCenter()"> <img class="btn-edit" src="ICONS/center-text-alignment.png"></button>
+                <button class="bcg-edit" onclick="alignToRight()"> <img class="btn-edit" src="ICONS/align-to-right.png"></button>
+            </div>
+            <div class="down-editor-btn">
+                <section>
+                    <option class="inpact">inpact</option>
+                </section>
+                <button class="bcg-edit" onclick="unFillText()"> <img class="btn-edit" src="ICONS/text stroke.png"></button>
+                <button class="bcg-edit"> <img class="btn-edit" src="ICONS/paint-board-and-brush.png"></button>
             </div>
         </div>
+    </div>
 
     </div>
+    <div class="screen " onclick="toggleMenu() "></div>
     <header>
-        <div class="screen " onclick="toggleMenu() "></div>
-        <nav class="container clean-list flex align-center ">
+
+        <nav class="container-nav clean-list flex ">
             <div class="mainMenu flex align-center ">
                 <img src="img/logo/1.png " class="logo ">
                 <button id="menu-btn " class="menu-btn " onclick="toggleMenu() ">☰</button>
@@ -65,13 +83,14 @@
         <section>
 
             <div class="about-me team-member flex align-center ">
-                <img class="mx-auto rounded-circle " src="img/me/2.jpg " alt=" ">
-                <h4 class="myName ">Artyom Pogosov</h4>
-                <div class="flex-align-center ">
-                    <p class="large text-muted about-description ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam
-                        veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                <div>
+                    <img class="mx-auto rounded-circle " src="img/me/2.jpg " alt=" ">
+                    <h4 class="myName ">Artyom Pogosov</h4>
                 </div>
-                <ul class="list-inline social-buttons ">
+                <div class="flex-align-center ">
+                    <p class="large text-muted about-description ">alias ut unde. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                </div>
+                <!-- <ul class="list-inline social-buttons ">
                     <li class="list-inline-item ">
                         <a href="https://www.facebook.com/pogosov ">
                             <i class="fa fa-facebook "></i>
@@ -85,7 +104,7 @@
                     <li class="list-inline-item ">
                         <a href="https://github.com/artyomP1?tab=repositories "><i class="fa fa-github "></i></a>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         </section>
     </body>
