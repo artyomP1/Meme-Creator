@@ -24,6 +24,7 @@ function onModalMeme(imgUrl, imgId) {
     image.width = elModalCanvas.offsetWidth;
     image.height = elModalCanvas.offsetHeight;
     gCanvas.width = elModalCanvas.offsetWidth;
+
     image.src = imgUrl;
     image.onload = () => {
         gCtx.drawImage(image, 0, 0, image.width, image.height);
@@ -33,16 +34,17 @@ function onModalMeme(imgUrl, imgId) {
 function addTextToCanvas(txtMeme, selectedTxtIdx) {
     let textx;
     let texty;
-    gCtx.font = `${txtMeme.size}px Comic Sans MS`;
+    gCtx.font = `${txtMeme.size}px ${txtMeme.font}`;
     gCtx.fillStyle = txtMeme.color;
     gCtx.textAlign = txtMeme.align;
+    gCtx.strokeStyle = txtMeme.colorStroke;
     if (gCtx.textAlign === 'left') textx = 10;
     else if (gCtx.textAlign === 'right') textx = gCanvas.width - 10;
     else textx = (gCanvas.width / 2);
     if (selectedTxtIdx === 0) texty = 50;
     else texty = ((gCanvas.height - 20) / selectedTxtIdx);
+    gCtx.strokeText(txtMeme.line, textx, texty);
     if (txtMeme.isFill) gCtx.fillText(txtMeme.line, textx, texty);
-    else gCtx.strokeText(txtMeme.line, textx, texty);
 
 }
 
@@ -59,11 +61,9 @@ function changeColor(color) {
     changeAllTxt('color', color)
 }
 
-function textFontSize(sizeText) {
-    let sizeChange;
-    if (sizeText === 'increase') sizeChange = 2;
-    if (sizeText === 'decrease') sizeChange = -2;
-    changeFontSize(sizeChange)
+function textFontSize(TextCangeSize) {
+    let changeSize = (TextCangeSize === 'increase') ? 2 : -2;
+    changeFontSize(changeSize)
 }
 
 
@@ -90,7 +90,11 @@ function closeMemeEditor() {
     elModal.style.display = 'none';
 }
 
+function changeFont(fontFamily) {
+    console.log(fontFamily);
 
+    changeAllTxt('font', fontFamily)
+}
 
 
 function deleteTxt() {

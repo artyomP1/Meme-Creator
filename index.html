@@ -9,7 +9,7 @@
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Memegen</title>
 </head>
 
 <body onload="init()">
@@ -38,6 +38,12 @@
                 <button class="bcg-edit " onclick="alignText('right') "> <img class="btn-edit " src="ICONS/align-to-right.png "></button>
             </div>
             <div class="down-editor-btn ">
+                <select onchange="changeFont(this.value)" class="font-famely">
+                    <option value="Impact">Impact</option>
+                    <option value="Ariel">Ariel</option>
+                    <option value="Franklin">Franklin</option>
+                    <option value="Times">Times</option>
+                </select>
                 <button class="bcg-edit " onclick="unFillText()"> <img class="btn-edit " src="ICONS/text stroke.png "></button>
                 <input onchange="changeColor(this.value) " type="color" class="bcg-edit ">
             </div>
@@ -49,6 +55,7 @@
                 <button class="change-image " onclick="backTogallery() ">Change Image</button>
             </div>
         </div>
+
     </div>
 
     </div>
@@ -82,7 +89,7 @@
 
     <body>
 
-        <main class="img-container ">
+        <main class="img-container">
 
         </main>
         <section>

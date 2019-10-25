@@ -18,6 +18,8 @@ gMeme = {
         size: 30,
         align: 'left',
         color: 'black',
+        colorStroke: 'white',
+        font: 'impact',
         isFill: true
     }]
 }
@@ -48,15 +50,7 @@ function addImageId(imgId) {
 }
 
 function addTxtLine(elTxtLine) {
-    console.log(elTxtLine);
-
-    // if (gMeme.selectedTxtIdx === -1) {
-    //     gMeme.selectedTxtIdx = 0;
     gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    // } else if (gMeme.selectedTxtIdx === 0) {
-    //     gMeme.selectedTxtIdx = 1;
-    //     gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    // } else return;
     addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, gMeme.txts[gMeme.selectedTxtIdx].size)
 }
 
@@ -66,10 +60,16 @@ function addNewLine() {
     if (gMeme.txts.length > 2) return;
     let elTxtLine = document.querySelector('.text-line');
     elTxtLine.value = '';
-    let newTxt = gMeme.txts[0];
+    let newTxt = {
+        line: '',
+        size: 30,
+        align: 'left',
+        color: 'black',
+        isFill: true
+    };
     gMeme.selectedTxtIdx++;
-    gMeme.txts.push(newTxt)
-    inputPlaceholderLine(gMeme.selectedTxtIdx)
+    gMeme.txts.push(newTxt);
+    inputPlaceholderLine(gMeme.selectedTxtIdx);
 }
 
 
@@ -83,7 +83,7 @@ function switchTextLines() {
     [gMeme.txts[0], gMeme.txts[1]] = [gMeme.txts[1], gMeme.txts[0]];
     let image = findCurrImg(gMeme.selectedImgId)
     editTxtOnCanvas(gMeme, image[0].url);
-    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, Meme.txts[0].size)
+    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, gMeme.txts[0].size)
 }
 
 
@@ -93,13 +93,18 @@ function textAlign(align) {
 
 function txtIdxDown() {
     if (gMeme.selectedTxtIdx === gMeme.txts.length - 1) return;
-    gMeme.selectedTxtIdx++
+    gMeme.selectedTxtIdx++;
+    inputPlaceholderLine(gMeme.selectedTxtIdx);
+    let elTxtLine = document.querySelector('.text-line');
+    elTxtLine.value = '';
 }
 
 function txtIdxUp() {
     if (gMeme.selectedTxtIdx === 0) return;
-    gMeme.selectedTxtIdx--
-        console.log(gMeme.selectedTxtIdx);
+    gMeme.selectedTxtIdx--;
+    inputPlaceholderLine(gMeme.selectedTxtIdx);
+    let elTxtLine = document.querySelector('.text-line');
+    elTxtLine.value = '';
 }
 
 function changeFontSize(sizeChange) {
@@ -116,10 +121,10 @@ function changeFontSize(sizeChange) {
 
 function findImgToDell() {
     let img = findCurrImage(gMeme.selectedImgId)
-    gMeme.txts[0].line = '';
-    gMeme.txts[0].line = '';
-    gMeme.selectedTxtIdx = -1;
-    onModalMeme(img.url, img.id)
+    gMeme.txts[gMeme.selectedTxtIdx].line = '';
+    editTxtOnCanvas(gMeme, img.url)
+    let elTxtLine = document.querySelector('.text-line');
+    elTxtLine.value = '';
 }
 
 function changeAllTxt(whatToCange, toWhatChange) {
