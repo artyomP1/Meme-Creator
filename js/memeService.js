@@ -12,14 +12,8 @@ function init() {
 
 gMeme = {
     selectedImgId: null,
-    selectedTxtIdx: -1,
+    selectedTxtIdx: 0,
     txts: [{
-        line: '',
-        size: 30,
-        align: 'left',
-        color: 'black',
-        isFill: true
-    }, {
         line: '',
         size: 30,
         align: 'left',
@@ -27,6 +21,8 @@ gMeme = {
         isFill: true
     }]
 }
+
+
 
 
 function ctrateImgs() {
@@ -52,14 +48,28 @@ function addImageId(imgId) {
 }
 
 function addTxtLine(elTxtLine) {
-    if (gMeme.selectedTxtIdx === -1) {
-        gMeme.selectedTxtIdx = 0;
-        gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    } else if (gMeme.selectedTxtIdx === 0) {
-        gMeme.selectedTxtIdx = 1;
-        gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    } else return;
+    console.log(elTxtLine);
+
+    // if (gMeme.selectedTxtIdx === -1) {
+    //     gMeme.selectedTxtIdx = 0;
+    gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
+    // } else if (gMeme.selectedTxtIdx === 0) {
+    //     gMeme.selectedTxtIdx = 1;
+    //     gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
+    // } else return;
     addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, gMeme.txts[gMeme.selectedTxtIdx].size)
+}
+
+
+
+function addNewLine() {
+    if (gMeme.txts.length > 2) return;
+    let elTxtLine = document.querySelector('.text-line');
+    elTxtLine.value = '';
+    let newTxt = gMeme.txts[0];
+    gMeme.selectedTxtIdx++;
+    gMeme.txts.push(newTxt)
+    inputPlaceholderLine(gMeme.selectedTxtIdx)
 }
 
 
@@ -73,62 +83,36 @@ function switchTextLines() {
     [gMeme.txts[0], gMeme.txts[1]] = [gMeme.txts[1], gMeme.txts[0]];
     let image = findCurrImg(gMeme.selectedImgId)
     editTxtOnCanvas(gMeme, image[0].url);
-    addTextToCanvas(gMeme.txts[0], gMeme.selectedTxtIdx, Meme.txts[0].size)
-    addTextToCanvas(gMeme.txts[1], gMeme.selectedTxtIdx, Meme.txts[0].size)
-}
-
-function alignToLeft() {
-    gMeme.txts[0].align = 'left';
-    gMeme.txts[1].align = 'left';
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
-
-}
-
-function alignToRight() {
-    gMeme.txts[0].align = 'right';
-    gMeme.txts[1].align = 'right';
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
+    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, Meme.txts[0].size)
 }
 
 
-function alignToCenter() {
-    gMeme.txts[0].align = 'center';
-    gMeme.txts[1].align = 'center';
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
-
+function textAlign(align) {
+    changeAllTxt('align', align)
 }
 
-function increaseFont() {
-    gMeme.txts[0].size += 2;
-    gMeme.txts[1].size += 2;
+function txtIdxDown() {
+    if (gMeme.selectedTxtIdx === gMeme.txts.length - 1) return;
+    gMeme.selectedTxtIdx++
+}
+
+function txtIdxUp() {
+    if (gMeme.selectedTxtIdx === 0) return;
+    gMeme.selectedTxtIdx--
+        console.log(gMeme.selectedTxtIdx);
+}
+
+function changeFontSize(sizeChange) {
+    let txts = gMeme.txts;
+    txts.forEach(txt => {
+        txt.size = txt.size + sizeChange;
+    })
+    gMeme.txts = txts;
     let image = findCurrImg(gMeme.selectedImgId)
     editTxtOnCanvas(gMeme, image[0].url);
 }
 
-function decreaseFont() {
-    gMeme.txts[0].size -= 2;
-    gMeme.txts[1].size -= 2;
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
-}
 
-function unFillText() {
-    gMeme.txts[0].isFill = false;
-    gMeme.txts[1].isFill = false;
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
-}
-
-function changeColor(color) {
-    gMeme.txts[0].color = color;
-    gMeme.txts[1].color = color;
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
-
-}
 
 function findImgToDell() {
     let img = findCurrImage(gMeme.selectedImgId)
@@ -136,6 +120,16 @@ function findImgToDell() {
     gMeme.txts[0].line = '';
     gMeme.selectedTxtIdx = -1;
     onModalMeme(img.url, img.id)
+}
+
+function changeAllTxt(whatToCange, toWhatChange) {
+    let txts = gMeme.txts;
+    txts.forEach(txt => {
+        txt[whatToCange] = toWhatChange;
+    })
+    gMeme.txts = txts;
+    let image = findCurrImg(gMeme.selectedImgId)
+    editTxtOnCanvas(gMeme, image[0].url);
 }
 
 function findCurrImage(imgId) {

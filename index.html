@@ -20,19 +20,22 @@
             <div class="mame-creator "></div>
         </div>
         <div class="main-editor">
-            <input class="text-line" type="text" placeholder="Text line">
+            <input class="text-line" type="text" placeholder="first text line" oninput="addTxtLine(this.value)">
             <div class="first-editor-btn ">
+
+                <button class="bcg-edit "> <img class="btn-edit " onclick="txtIdxDown()" src="ICONS/arrow-down.png "></button>
+                <button class="bcg-edit "> <img class="btn-edit " onclick="txtIdxUp()" src="ICONS/arrow-up.png "></button>
                 <button class="bcg-edit " onclick="onSwitchTextLines() "> <img class="btn-edit " 
                         src="ICONS/up-and-down-opposite-double-arrows-side-by-side.png "></button>
-                <button class="bcg-edit "> <img class="btn-edit " onclick="addTextInput() " src="ICONS/add.png "></button>
+                <button class="bcg-edit "> <img class="btn-edit " onclick="addNewLine()" src="ICONS/add.png "></button>
                 <button class="bcg-edit "> <img class="btn-edit " onclick="deleteTxt()" src="ICONS/trash.png "></button>
             </div>
             <div class="mid-editor-btn ">
-                <button class="bcg-edit " onclick="increaseFont() "> <img class="btn-edit " src="ICONS/increase font - icon.png "></button>
-                <button class="bcg-edit " onclick="decreaseFont() "> <img class="btn-edit " src="ICONS/decrease font - icon.png "></button>
-                <button class="bcg-edit " onclick="alignToLeft() "> <img class="btn-edit " src="ICONS/align-to-left.png "></button>
-                <button class="bcg-edit " onclick="alignToCenter() "> <img class="btn-edit " src="ICONS/center-text-alignment.png "></button>
-                <button class="bcg-edit " onclick="alignToRight() "> <img class="btn-edit " src="ICONS/align-to-right.png "></button>
+                <button class="bcg-edit " onclick="textFontSize('increase') "> <img class="btn-edit " src="ICONS/increase font - icon.png "></button>
+                <button class="bcg-edit " onclick="textFontSize('decrease') "> <img class="btn-edit " src="ICONS/decrease font - icon.png "></button>
+                <button class="bcg-edit " onclick="alignText('left') "> <img class="btn-edit " src="ICONS/align-to-left.png "></button>
+                <button class="bcg-edit " onclick="alignText('center') "> <img class="btn-edit " src="ICONS/center-text-alignment.png "></button>
+                <button class="bcg-edit " onclick="alignText('right') "> <img class="btn-edit " src="ICONS/align-to-right.png "></button>
             </div>
             <div class="down-editor-btn ">
                 <button class="bcg-edit " onclick="unFillText()"> <img class="btn-edit " src="ICONS/text stroke.png "></button>

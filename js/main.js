@@ -16,17 +16,9 @@ function renderImgMemes(imgs) {
     elImgsContainer.innerHTML = imagesHTMLs.join('');
 }
 
-
-function toggleMenu() {
-    document.body.classList.toggle('open-menu');
-}
-
 function onModalMeme(imgUrl, imgId) {
     addImageId(imgId)
-    let elModal = document.querySelector('.modal');
-    elModal.style.display = 'flex';
-    let elImgContainer = document.querySelector('.img-container');
-    elImgContainer.style.display = 'none';
+    openEditorCloseGallery();
     let elModalCanvas = document.querySelector('.modal-container');
     let image = new Image();
     image.width = elModalCanvas.offsetWidth;
@@ -35,33 +27,58 @@ function onModalMeme(imgUrl, imgId) {
     image.src = imgUrl;
     image.onload = () => {
         gCtx.drawImage(image, 0, 0, image.width, image.height);
-        return;
     };
 }
 
-function addTextToCanvas(txtMeme, selectedTxtIdx, fontSize) {
+function addTextToCanvas(txtMeme, selectedTxtIdx) {
     let textx;
-    gCtx.font = `${fontSize}px Comic Sans MS`;
+    let texty;
+    gCtx.font = `${txtMeme.size}px Comic Sans MS`;
     gCtx.fillStyle = txtMeme.color;
     gCtx.textAlign = txtMeme.align;
     if (gCtx.textAlign === 'left') textx = 10;
     else if (gCtx.textAlign === 'right') textx = gCanvas.width - 10;
-    else textx = (gCanvas.width / 2) - 50;
-    let texty = (selectedTxtIdx === 0) ? 50 : 300;
+    else textx = (gCanvas.width / 2);
+    if (selectedTxtIdx === 0) texty = 50;
+    else texty = ((gCanvas.height - 20) / selectedTxtIdx);
     if (txtMeme.isFill) gCtx.fillText(txtMeme.line, textx, texty);
     else gCtx.strokeText(txtMeme.line, textx, texty);
 
 }
 
+
+function alignText(align) {
+    textAlign(align);
+}
+
+function unFillText() {
+    changeAllTxt('isFill', false)
+}
+
+function changeColor(color) {
+    changeAllTxt('color', color)
+}
+
+function textFontSize(sizeText) {
+    let sizeChange;
+    if (sizeText === 'increase') sizeChange = 2;
+    if (sizeText === 'decrease') sizeChange = -2;
+    changeFontSize(sizeChange)
+}
+
+
 function editTxtOnCanvas(gMeme, ImgUrl) {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     onModalMeme(ImgUrl, gMeme.selectedImgId)
     setTimeout(function() {
-        addTextToCanvas(gMeme.txts[0], 0, gMeme.txts[0].size)
-        addTextToCanvas(gMeme.txts[1], 1, gMeme.txts[0].size)
-    }, 100);
+        let txts = gMeme.txts;
+        let idx = 0;
+        txts.forEach(txt => {
+            addTextToCanvas(txt, idx)
+            idx++
+        })
 
-
+    }, 10);
 }
 
 function onSwitchTextLines() {
@@ -73,13 +90,8 @@ function closeMemeEditor() {
     elModal.style.display = 'none';
 }
 
-function addTextInput() {
-    let elTxtLine = document.querySelector('.text-line');
-    if (elTxtLine.value.length === 0) return;
-    addTxtLine(elTxtLine.value);
-    elTxtLine.value = '';
 
-}
+
 
 function deleteTxt() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
@@ -91,4 +103,32 @@ function backTogallery() {
     closeMemeEditor()
     let elImgContainer = document.querySelector('.img-container');
     elImgContainer.style.display = 'grid';
+}
+
+function openEditorCloseGallery() {
+    let elModal = document.querySelector('.modal');
+    elModal.style.display = 'flex';
+    let elImgContainer = document.querySelector('.img-container');
+    elImgContainer.style.display = 'none';
+
+}
+
+function toggleMenu() {
+    document.body.classList.toggle('open-menu');
+}
+
+function inputPlaceholderLine(txtIdx) {
+    let lineNum;
+    switch (txtIdx) {
+        case 0:
+            lineNum = 'first';
+            break;
+        case 1:
+            lineNum = 'second';
+            break;
+        case 2:
+            lineNum = 'third';
+            break;
+    };
+    document.querySelector('.text-line').placeholder = lineNum + ' text line';
 }
