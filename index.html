@@ -17,17 +17,17 @@
     <div class="modal">
         <div class="modal-container flex">
             <canvas class="canvas" width="400" height="400" ontouchcancel="mouseUp()" ontouchstart="mouseDown()" ontouchmove="onMoveText(event)" ontouchend="mouseUp()" onmouseout="mouseUp()" onmousemove="onMoveText(event)" onmousedown="mouseDown()" onmouseup="mouseUp()"></canvas>
-            <div id="fb-root"></div>
             <div class="mame-creator "></div>
         </div>
         <div class="main-editor">
             <input class="text-line" type="text" placeholder="first text line" oninput="addTxtLine(this.value)">
             <div class="first-editor-btn ">
 
-                <button class="bcg-edit " style="background-image: url(ICONS/arrow-down.png ); " onclick="txtIdxDown()"> </button>
-                <button class="bcg-edit " style="background-image: url(ICONS/arrow-up.png ); font-size: 26px;" onclick="txtIdxUp()"> </button>
-                <button class="bcg-edit " onclick="onSwitchTextLines() " style="background-image: url(ICONS/up-and-down-opposite-double-arrows-side-by-side.png); font-size: 26px;"> </button>
-                <button class="bcg-edit " style="background-image: url(ICONS/add.png ); font-size: 26px;" onclick="addNewLine()"> </button>
+                <button class="bcg-edit "> <img class="btn-edit " onclick="txtIdxDown()" src="ICONS/arrow-down.png "></button>
+                <button class="bcg-edit "> <img class="btn-edit " onclick="txtIdxUp()" src="ICONS/arrow-up.png "></button>
+                <button class="bcg-edit " onclick="onSwitchTextLines() "> <img class="btn-edit " 
+                        src="ICONS/up-and-down-opposite-double-arrows-side-by-side.png "></button>
+                <button class="bcg-edit "> <img class="btn-edit " onclick="addNewLine()" src="ICONS/add.png "></button>
                 <button class="bcg-edit "> <img class="btn-edit " onclick="deleteTxt()" src="ICONS/trash.png "></button>
             </div>
             <div class="mid-editor-btn ">
@@ -46,14 +46,10 @@
                 </select>
                 <button class="bcg-edit " onclick="unFillText()"> <img class="btn-edit " src="ICONS/text stroke.png "></button>
                 <button class="bcg-edit " onclick="fillText()"> <img class="btn-edit " src="ICONS/textfill.png "></button>
-                <input onchange="changeColor(this.value) " type="color" class="bcg-edit ">
+                <input onchange="changeColor(this.value) " type="color" class="bcg-edit  ">
             </div>
             <div>
-                <!-- <input name="img" id="imgData" type="hidden" />
-                <button class="share sh-dw ">Share</button>
-                <span class="share-container"></span>
-                <a id="download" download="MyMeme.png">
-                    <button class="download sh-dw " onclick="download()">Download</button></a> -->
+
                 <form action="" method="POST" class="post" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                     <input name="img" id="imgData" type="hidden" />
                     <button class="sh-dw" type="submit">Publish</button>

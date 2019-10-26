@@ -6,22 +6,26 @@ let gMeme;
 function init() {
     gImgs = ctrateImgs();
     renderImgMemes(gImgs)
+    ctrategMene()
 }
 
-gMeme = {
-    selectedImgId: null,
-    selectedTxtIdx: 0,
-    txts: [{
-        line: '',
-        size: 30,
-        align: 'left',
-        color: 'black',
-        colorStroke: 'white',
-        font: 'impact',
-        isFill: true,
-        width: 10,
-        height: 30,
-    }]
+
+function ctrategMene() {
+    gMeme = {
+        selectedImgId: null,
+        selectedTxtIdx: 0,
+        txts: [{
+            line: '',
+            size: 30,
+            align: 'left',
+            color: 'black',
+            colorStroke: 'white',
+            font: 'impact',
+            isFill: true,
+            width: 10,
+            height: 30,
+        }]
+    }
 }
 
 function returnGMeme() {
@@ -106,13 +110,6 @@ function switchTextLines() {
 }
 
 
-// function textAlign(align) {
-//     changeAllTxt('align', align)
-//     let width ;
-//     if (gCtx.textAlign === 'left') width = 10;
-//     else if (gCtx.textAlign === 'right') width = gCanvas.width - 10;
-//     else width = (gCanvas.width / 2);
-// }
 
 function txtIdxDown() {
     gMeme.txts[gMeme.selectedTxtIdx].height += 5;
@@ -149,12 +146,14 @@ function moveTextTo(height, width) {
 
 function onMoveText(ev) {
     ev.preventDefault()
-    if (!isMouseDown) {
+    if (!isMouseDown || gMeme.txts[0].line.length === 0) {
         return
     }
     moveTextTo(ev.offsetY, ev.offsetX)
-    let Img = findCurrImg(gImgs)
-    editTxtOnCanvas(gMeme, Img.url)
+    let img = findCurrImage(gMeme.selectedImgId)
+        // addTextToCanvas(gMeme)
+        // onModalMeme(img.url, gMeme.selectedTxtIdx)
+    editTxtOnCanvas(gMeme, img.url)
 }
 
 
@@ -173,7 +172,8 @@ function changeAllTxt(whatToCange, toWhatChange) {
     })
     gMeme.txts = txts;
     let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(gMeme, image[0].url);
+    editTxtOnCanvas(image[0].txts);
+
 }
 
 function findCurrImage(imgId) {

@@ -275,8 +275,6 @@
                                         
                                         .bcg-edit {
                                             background-color: white;
-                                            background-position: 50% 50%;
-                                            background-repeat: no-repeat;
                                             width: 40px;
                                             height: 40px;
                                             cursor: pointer;
@@ -305,6 +303,16 @@
                                             cursor: pointer;
                                             border: none;
                                             text-decoration: none;
+                                            border: 0px solid;
+                                        }
+                                        
+                                        .change-image {
+                                            background-color: #ff7f00;
+                                            color: white;
+                                            border-radius: 10px;
+                                            width: 130px;
+                                            cursor: pointer;
+                                            border: none;
                                         }
                                         
                                         .post {
@@ -346,14 +354,13 @@
                                                 align-content: center;
                                                 justify-content: center;
                                                 align-items: center;
-                                                height: 500px;
+                                                height: 600px;
                                             }
                                             .main-editor {
                                                 margin-left: 100px;
                                             }
                                             /* .modal-container {
                                                 height: 400px;
-                                                width: 400px;
                                             } */
                                             .text-line {
                                                 margin: 20px;
