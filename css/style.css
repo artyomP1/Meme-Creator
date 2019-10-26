@@ -26,6 +26,8 @@
                                         
                                         .canvas {
                                             margin-top: 20px;
+                                            width: 370px;
+                                            height: 370px;
                                         }
                                         
                                         .container-nav {
@@ -97,6 +99,10 @@
                                         
                                         .align-center {
                                             align-items: center;
+                                        }
+                                        
+                                        .img-fluid {
+                                            width: 100%;
                                         }
                                         
                                         .img-container {
@@ -319,7 +325,7 @@
                                             display: inline;
                                         }
                                         
-                                        @media (min-width: 760px) {
+                                        @media (min-width: 780px) {
                                             .mainMenu {
                                                 padding: 25px;
                                             }

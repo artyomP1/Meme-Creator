@@ -57,10 +57,9 @@ function addImageId(imgId) {
 
 function addTxtLine(elTxtLine) {
     gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, gMeme.txts[gMeme.selectedTxtIdx].size)
+    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx])
+
 }
-
-
 
 function addNewLine() {
     if (gMeme.txts.length > 2) return;
@@ -107,6 +106,7 @@ function switchTextLines() {
     }
     let image = findCurrImg(gMeme.selectedImgId)
     editTxtOnCanvas(gMeme, image[0].url);
+
 }
 
 
@@ -151,8 +151,6 @@ function onMoveText(ev) {
     }
     moveTextTo(ev.offsetY, ev.offsetX)
     let img = findCurrImage(gMeme.selectedImgId)
-        // addTextToCanvas(gMeme)
-        // onModalMeme(img.url, gMeme.selectedTxtIdx)
     editTxtOnCanvas(gMeme, img.url)
 }
 
@@ -163,6 +161,8 @@ function findImgToDell() {
     editTxtOnCanvas(gMeme, img.url)
     let elTxtLine = document.querySelector('.text-line');
     elTxtLine.value = '';
+    if (gMeme.selectedTxtIdx === 0) return
+    gMeme.selectedTxtIdx -= 1;
 }
 
 function changeAllTxt(whatToCange, toWhatChange) {
@@ -171,8 +171,8 @@ function changeAllTxt(whatToCange, toWhatChange) {
         txt[whatToCange] = toWhatChange;
     })
     gMeme.txts = txts;
-    let image = findCurrImg(gMeme.selectedImgId)
-    editTxtOnCanvas(image[0].txts);
+    let image = findCurrImage(gMeme.selectedImgId)
+    editTxtOnCanvas(gMeme, image.url);
 
 }
 

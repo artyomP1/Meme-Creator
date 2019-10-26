@@ -35,12 +35,15 @@ function onModalMeme(imgUrl, imgId) {
 }
 
 function addTextToCanvas(txtMeme) {
+    // gCtx.clearRect(0, 0, c.width, c.height);
+    gCtx.restore();
     gCtx.font = `${txtMeme.size}px ${txtMeme.font}`;
     gCtx.fillStyle = txtMeme.color;
     gCtx.textAlign = txtMeme.align;
     gCtx.strokeStyle = txtMeme.colorStroke;
     gCtx.strokeText(txtMeme.line, txtMeme.width, txtMeme.height);
     if (txtMeme.isFill) gCtx.fillText(txtMeme.line, txtMeme.width, txtMeme.height);
+    gCtx.save();
 }
 
 function chackCanvasHeight() {
@@ -78,9 +81,9 @@ function textAlign(align) {
 }
 
 
-function editTxtOnCanvas(gMeme, ImgUrl) {
+function editTxtOnCanvas(gMeme, imgUrl) {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    onModalMeme(ImgUrl, gMeme.selectedImgId)
+    onModalMeme(imgUrl, gMeme.selectedImgId)
     setTimeout(function() {
         let txts = gMeme.txts;
         let idx = 0;
@@ -102,8 +105,6 @@ function closeMemeEditor() {
 }
 
 function changeFont(fontFamily) {
-    console.log(fontFamily);
-
     changeAllTxt('font', fontFamily)
 }
 
