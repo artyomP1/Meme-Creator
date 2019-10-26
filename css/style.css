@@ -18,6 +18,13 @@
                                             margin: 0;
                                         }
                                         
+                                        .nav-bar {
+                                            font-size: 20px;
+                                            margin: 0 auto;
+                                            padding-top: 15px;
+                                            padding-left: 15px;
+                                        }
+                                        
                                         header {
                                             width: 100%;
                                             margin: 0;
@@ -113,8 +120,6 @@
                                             display: grid;
                                             grid-gap: 5px;
                                             grid-template-columns: auto auto;
-                                            font-family: ;
-                                            ;
                                         }
                                         
                                         footer {
@@ -123,7 +128,7 @@
                                             height: 207px;
                                             background-color: #ff7f00;
                                             bottom: 0px;
-                                            margin-top: 90px;
+                                            margin-top: 150px;
                                         }
                                         
                                         footer ul {
@@ -247,7 +252,7 @@
                                             background-color: #e3e3e3;
                                             margin-top: 65px;
                                             /* margin-bottom: 100px; */
-                                            height: 700px;
+                                            height: 720px;
                                             z-index: 1000;
                                         }
                                         
@@ -360,7 +365,7 @@
                                                 align-content: center;
                                                 justify-content: center;
                                                 align-items: center;
-                                                height: 600px;
+                                                height: 630px;
                                             }
                                             .main-editor {
                                                 margin-left: 100px;
