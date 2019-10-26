@@ -1,6 +1,5 @@
 'use strict';
 
-
 let gCanvas = document.querySelector('.canvas');
 let gCtx = gCanvas.getContext("2d");
 let isMouseDown = false;
@@ -33,6 +32,7 @@ function onModalMeme(imgUrl, imgId) {
         gCtx.drawImage(image, 0, 0, image.width, image.height);
     };
 }
+
 
 function addTextToCanvas(txtMeme) {
     // gCtx.clearRect(0, 0, c.width, c.height);
@@ -118,6 +118,8 @@ function backTogallery() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     closeMemeEditor();
     ctrategMene();
+    let elTxtLine = document.querySelector('.text-line');
+    elTxtLine.value = '';
     let elImgContainer = document.querySelector('.img-container');
     elImgContainer.style.display = 'grid';
 }
@@ -162,20 +164,12 @@ function inputPlaceholderLine(txtIdx) {
 
 
 
-function onMoveText(event) {
-    console.log('a');
-
-
-}
-
 
 function mouseDown() {
-    console.log('Down');
     isMouseDown = true;
 }
 
 function mouseUp() {
-    console.log('Up');
     isMouseDown = false;
 
 }
