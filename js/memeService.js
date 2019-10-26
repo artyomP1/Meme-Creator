@@ -2,13 +2,11 @@
 
 let gImgs;
 let gMeme;
-let gIdxId = 0;
 
 function init() {
     gImgs = ctrateImgs();
     renderImgMemes(gImgs)
 }
-
 
 gMeme = {
     selectedImgId: null,
@@ -20,11 +18,15 @@ gMeme = {
         color: 'black',
         colorStroke: 'white',
         font: 'impact',
-        isFill: true
+        isFill: true,
+        width: 10,
+        height: 30,
     }]
 }
 
-
+function returnGMeme() {
+    return gMeme;
+}
 
 
 function ctrateImgs() {
@@ -58,6 +60,9 @@ function addTxtLine(elTxtLine) {
 
 function addNewLine() {
     if (gMeme.txts.length > 2) return;
+    let canvasHeight = chackCanvasHeight();
+    gMeme.selectedTxtIdx++;
+    canvasHeight = ((canvasHeight - 20) / gMeme.selectedTxtIdx);
     let elTxtLine = document.querySelector('.text-line');
     elTxtLine.value = '';
     let newTxt = {
@@ -65,9 +70,13 @@ function addNewLine() {
         size: 30,
         align: 'left',
         color: 'black',
-        isFill: true
+        isFill: true,
+        colorStroke: 'white',
+        font: 'impact',
+        height: canvasHeight,
+        width: 10
     };
-    gMeme.selectedTxtIdx++;
+
     gMeme.txts.push(newTxt);
     inputPlaceholderLine(gMeme.selectedTxtIdx);
 }
@@ -80,28 +89,44 @@ function findCurrImg(image) {
 }
 
 function switchTextLines() {
-    [gMeme.txts[0], gMeme.txts[1]] = [gMeme.txts[1], gMeme.txts[0]];
+    console.log(gMeme.txts);
+    if (gMeme.txts.length === 1) return;
+    else {
+        let temp = gMeme.txts[1].line;
+        gMeme.txts[1].line = gMeme.txts[0].line;
+        gMeme.txts[0].line = temp;
+    }
+    if (gMeme.txts.length === 3) {
+        let temp = gMeme.txts[0].line;
+        gMeme.txts[0].line = gMeme.txts[2].line;
+        gMeme.txts[2].line = temp;
+    }
     let image = findCurrImg(gMeme.selectedImgId)
     editTxtOnCanvas(gMeme, image[0].url);
-    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gMeme.selectedTxtIdx, gMeme.txts[0].size)
 }
 
 
-function textAlign(align) {
-    changeAllTxt('align', align)
-}
+// function textAlign(align) {
+//     changeAllTxt('align', align)
+//     let width ;
+//     if (gCtx.textAlign === 'left') width = 10;
+//     else if (gCtx.textAlign === 'right') width = gCanvas.width - 10;
+//     else width = (gCanvas.width / 2);
+// }
 
 function txtIdxDown() {
-    if (gMeme.selectedTxtIdx === gMeme.txts.length - 1) return;
-    gMeme.selectedTxtIdx++;
+    gMeme.txts[gMeme.selectedTxtIdx].height += 5;
+    let image = findCurrImg(gMeme.selectedImgId)
+    editTxtOnCanvas(gMeme, image[0].url)
     inputPlaceholderLine(gMeme.selectedTxtIdx);
     let elTxtLine = document.querySelector('.text-line');
     elTxtLine.value = '';
 }
 
 function txtIdxUp() {
-    if (gMeme.selectedTxtIdx === 0) return;
-    gMeme.selectedTxtIdx--;
+    gMeme.txts[gMeme.selectedTxtIdx].height -= 5;
+    let image = findCurrImg(gMeme.selectedImgId)
+    editTxtOnCanvas(gMeme, image[0].url)
     inputPlaceholderLine(gMeme.selectedTxtIdx);
     let elTxtLine = document.querySelector('.text-line');
     elTxtLine.value = '';
@@ -117,6 +142,20 @@ function changeFontSize(sizeChange) {
     editTxtOnCanvas(gMeme, image[0].url);
 }
 
+function moveTextTo(height, width) {
+    gMeme.txts[gMeme.selectedTxtIdx].height = height
+    gMeme.txts[gMeme.selectedTxtIdx].width = width
+}
+
+function onMoveText(ev) {
+    ev.preventDefault()
+    if (!isMouseDown) {
+        return
+    }
+    moveTextTo(ev.offsetY, ev.offsetX)
+    let Img = findCurrImg(gImgs)
+    editTxtOnCanvas(gMeme, Img.url)
+}
 
 
 function findImgToDell() {

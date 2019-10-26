@@ -198,6 +198,10 @@
                                             cursor: pointer;
                                         }
                                         
+                                        a {
+                                            color: inherit;
+                                        }
+                                        
                                         .main-menu li {
                                             border-bottom: 1px solid rgba(153, 153, 153, 0.5);
                                             /* width: 100%; */
@@ -244,7 +248,7 @@
                                         .down-editor-btn {
                                             display: flex;
                                             align-items: center;
-                                            justify-content: center;
+                                            justify-content: space-around;
                                         }
                                         
                                         footer {
@@ -271,6 +275,8 @@
                                         
                                         .bcg-edit {
                                             background-color: white;
+                                            background-position: 50% 50%;
+                                            background-repeat: no-repeat;
                                             width: 40px;
                                             height: 40px;
                                             cursor: pointer;
@@ -296,6 +302,13 @@
                                             color: white;
                                             border-radius: 10px;
                                             width: 90px;
+                                            cursor: pointer;
+                                            border: none;
+                                            text-decoration: none;
+                                        }
+                                        
+                                        .post {
+                                            display: inline;
                                         }
                                         
                                         @media (min-width: 760px) {

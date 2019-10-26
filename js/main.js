@@ -1,7 +1,10 @@
 'use strict';
 
+
 let gCanvas = document.querySelector('.canvas');
 let gCtx = gCanvas.getContext("2d");
+let isMouseDown = false;
+
 
 function renderImgMemes(imgs) {
     let imagesHTMLs = '';
@@ -32,22 +35,26 @@ function onModalMeme(imgUrl, imgId) {
 }
 
 function addTextToCanvas(txtMeme, selectedTxtIdx) {
-    let textx;
-    let texty;
+    // let textx;
+    // let texty;
     gCtx.font = `${txtMeme.size}px ${txtMeme.font}`;
     gCtx.fillStyle = txtMeme.color;
     gCtx.textAlign = txtMeme.align;
     gCtx.strokeStyle = txtMeme.colorStroke;
-    if (gCtx.textAlign === 'left') textx = 10;
-    else if (gCtx.textAlign === 'right') textx = gCanvas.width - 10;
-    else textx = (gCanvas.width / 2);
-    if (selectedTxtIdx === 0) texty = 50;
-    else texty = ((gCanvas.height - 20) / selectedTxtIdx);
-    gCtx.strokeText(txtMeme.line, textx, texty);
-    if (txtMeme.isFill) gCtx.fillText(txtMeme.line, textx, texty);
-
+    // if (gCtx.textAlign === 'left') textx = 10;
+    // else if (gCtx.textAlign === 'right') textx = gCanvas.width - 10;
+    // else textx = (gCanvas.width / 2);
+    // if (selectedTxtIdx === 0) texty = 50;
+    // else texty = ((gCanvas.height - 20) / selectedTxtIdx);
+    // gCtx.strokeText(txtMeme.line, textx, texty);
+    // if (txtMeme.isFill) gCtx.fillText(txtMeme.line, textx, texty);
+    gCtx.strokeText(txtMeme.line, txtMeme.width, txtMeme.height);
+    if (txtMeme.isFill) gCtx.fillText(txtMeme.line, txtMeme.width, txtMeme.height);
 }
 
+function chackCanvasHeight() {
+    return gCanvas.height
+}
 
 function alignText(align) {
     textAlign(align);
@@ -57,6 +64,10 @@ function unFillText() {
     changeAllTxt('isFill', false)
 }
 
+function fillText() {
+    changeAllTxt('isFill', true)
+}
+
 function changeColor(color) {
     changeAllTxt('color', color)
 }
@@ -64,6 +75,15 @@ function changeColor(color) {
 function textFontSize(TextCangeSize) {
     let changeSize = (TextCangeSize === 'increase') ? 2 : -2;
     changeFontSize(changeSize)
+}
+
+function textAlign(align) {
+    changeAllTxt('align', align)
+    let width;
+    if (align === 'left') width = 10;
+    else if (align === 'right') width = gCanvas.width - 10;
+    else width = (gCanvas.width / 2);
+    changeAllTxt('width', width)
 }
 
 
@@ -121,6 +141,19 @@ function toggleMenu() {
     document.body.classList.toggle('open-menu');
 }
 
+function download() {
+    var download = document.getElementById("download");
+    var image = gCanvas.toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+    download.setAttribute("href", image);
+    //download.setAttribute("download","archive.png");
+}
+// function dwonload() {
+
+//     var img = gCanvas.toDataURL("image/png");
+//     document.write('<img src="' + img + '"/>');
+// }
+
 function inputPlaceholderLine(txtIdx) {
     let lineNum;
     switch (txtIdx) {
@@ -136,3 +169,93 @@ function inputPlaceholderLine(txtIdx) {
     };
     document.querySelector('.text-line').placeholder = lineNum + ' text line';
 }
+
+
+
+
+
+
+function onMoveText(event) {
+    console.log('a');
+    // var a = getMousePos()
+    // console.log(a);
+
+}
+
+
+function mouseDown() {
+    console.log('Down');
+    isMouseDown = true;
+}
+
+function mouseUp() {
+    console.log('Up');
+    isMouseDown = false;
+
+}
+
+function downloadImg(elLink) {
+    var imgContent = gCanvas.toDataURL('image/jpeg');
+    elLink.href = imgContent
+}
+
+
+function uploadImg(elForm, ev) {
+    ev.preventDefault();
+
+    document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        document.querySelector('.share-container').innerHTML = `
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+       </a>`
+        document.querySelector('.share-container').classList.add('sh-dw');
+    }
+
+    doUploadImg(elForm, onSuccess);
+}
+
+function doUploadImg(elForm, onSuccess) {
+    var formData = new FormData(elForm);
+
+    fetch('http://ca-upload.com/here/upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(response) {
+            return response.text()
+        })
+
+    .then(onSuccess)
+        .catch(function(error) {
+            console.error(error)
+        })
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderCanvas)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+        var img = new Image();
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(ev.target.files[0]);
+}
+
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v3.0&appId=807866106076694&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
