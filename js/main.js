@@ -179,6 +179,21 @@ function downloadImg(elLink) {
     elLink.href = imgContent
 }
 
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderCanvas)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+        var img = new Image();
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(ev.target.files[0]);
+}
 
 function uploadImg(elForm, ev) {
     ev.preventDefault();
@@ -196,6 +211,23 @@ function uploadImg(elForm, ev) {
     }
 
     doUploadImg(elForm, onSuccess);
+}
+
+function doUploadImg(elForm, onSuccess) {
+    var formData = new FormData(elForm);
+
+    fetch('http://ca-upload.com/here/upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(response) {
+            return response.text()
+        })
+
+    .then(onSuccess)
+        .catch(function(error) {
+            console.error(error)
+        })
 }
 
 function doUploadImg(elForm, onSuccess) {
