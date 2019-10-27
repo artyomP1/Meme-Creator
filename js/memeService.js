@@ -55,11 +55,6 @@ function addImageId(imgId) {
     gMeme.selectedImgId = +imgId;
 }
 
-function addTxtLine(elTxtLine) {
-    gMeme.txts[gMeme.selectedTxtIdx].line = elTxtLine;
-    addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx])
-
-}
 
 function addNewLine() {
     if (gMeme.txts.length > 2) return;

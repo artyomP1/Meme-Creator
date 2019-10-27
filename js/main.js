@@ -3,7 +3,7 @@
 let gCanvas = document.querySelector('.canvas');
 let gCtx = gCanvas.getContext("2d");
 let isMouseDown = false;
-
+let gIndexTemp;
 
 function renderImgMemes(imgs) {
     let imagesHTMLs = '';
@@ -18,33 +18,38 @@ function renderImgMemes(imgs) {
     elImgsContainer.innerHTML = imagesHTMLs.join('');
 }
 
+
 function onModalMeme(imgUrl, imgId) {
     addImageId(imgId)
     openEditorCloseGallery();
+    updateImgToCanvas(imgUrl)
+}
+
+
+function updateImgToCanvas(imgUrl) {
     let elModalCanvas = document.querySelector('.modal-container');
     let image = new Image();
     image.width = elModalCanvas.offsetWidth;
     image.height = elModalCanvas.offsetHeight;
     gCanvas.width = elModalCanvas.offsetWidth;
-
     image.src = imgUrl;
-    image.onload = () => {
-        gCtx.drawImage(image, 0, 0, image.width, image.height);
-    };
+    gCtx.drawImage(image, 0, 0, image.width, image.height);
 }
 
 
-function addTextToCanvas(txtMeme) {
-    // gCtx.clearRect(0, 0, c.width, c.height);
-    gCtx.restore();
+function addTextToCanvas(txtMeme, imgUrl) {
+    // gCtx.save();
+    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    // updateImgToCanvas(imgUrl)
     gCtx.font = `${txtMeme.size}px ${txtMeme.font}`;
     gCtx.fillStyle = txtMeme.color;
     gCtx.textAlign = txtMeme.align;
     gCtx.strokeStyle = txtMeme.colorStroke;
     gCtx.strokeText(txtMeme.line, txtMeme.width, txtMeme.height);
     if (txtMeme.isFill) gCtx.fillText(txtMeme.line, txtMeme.width, txtMeme.height);
-    gCtx.save();
+    // gCtx.restore();
 }
+
 
 function chackCanvasHeight() {
     return gCanvas.height
@@ -81,18 +86,28 @@ function textAlign(align) {
 }
 
 
-function editTxtOnCanvas(gMeme, imgUrl) {
+function addTxtLine(elTxtLine) {
+    let meme = returnGMeme();
+    let img = findCurrImage(meme.selectedImgId)
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    onModalMeme(imgUrl, gMeme.selectedImgId)
-    setTimeout(function() {
-        let txts = gMeme.txts;
-        let idx = 0;
-        txts.forEach(txt => {
-            addTextToCanvas(txt, idx)
-            idx++
-        })
+    meme.txts[meme.selectedTxtIdx].line = elTxtLine;
+    console.log(img);
 
-    }, 10);
+    editTxtOnCanvas(meme, img.url)
+        // addTextToCanvas(gMeme.txts[gMeme.selectedTxtIdx], gImgs[gMeme.selectedImgId - 1].url)
+
+}
+
+function editTxtOnCanvas(gMeme, imgUrl) {
+
+    updateImgToCanvas(imgUrl)
+    let txts = gMeme.txts;
+    let idx = 0;
+    txts.forEach(txt => {
+        addTextToCanvas(txt, imgUrl)
+        idx++
+    })
+
 }
 
 function onSwitchTextLines() {
@@ -165,11 +180,37 @@ function inputPlaceholderLine(txtIdx) {
 
 
 
-function mouseDown() {
+function mouseDown(ev) {
+    ev.preventDefault();
     isMouseDown = true;
+    let meme = returnGMeme();
+    gIndexTemp = meme.selectedTxtIdx;
+    var BB = gCanvas.getBoundingClientRect();
+    var offsetX = BB.left;
+    var offsetY = BB.top;
+    var startX;
+    var startY;
+    let mX = parseInt(ev.clientX - offsetX)
+    let mY = parseInt(ev.clientY - offsetY);
+    for (var i = 0; i < meme.txts.length; i++) {
+        gCtx.beginPath();
+        let tw = gCtx.measureText(meme.txts[i].line).width;
+        gCtx.rect((meme.txts[i].width), (meme.txts[i].height - 30), tw, 30);
+        gCtx.closePath();
+        gCtx.stroke();
+        gCtx.rect((meme.txts[i].width), (meme.txts[i].height - 30), tw, 30);
+        if (mX > meme.txts[i].width && mX < (meme.txts[i].width + tw) && mY > (meme.txts[i].height - 30) && mY < meme.txts[i].height) {
+            meme.selectedTxtIdx = i;
+        }
+    }
+    startX = mX;
+    startY = mY;
 }
 
+
 function mouseUp() {
+    // let meme = returnGMeme();
+    // meme.selectedTxtIdx = gIndexTemp;
     isMouseDown = false;
 
 }
