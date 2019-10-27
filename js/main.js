@@ -3,6 +3,7 @@
 let gCanvas = document.querySelector('.canvas');
 let gCtx = gCanvas.getContext("2d");
 let isMouseDown = false;
+let isHandleStart = false;
 let gIndexTemp;
 
 function renderImgMemes(imgs) {
@@ -208,11 +209,29 @@ function mouseDown(ev) {
 }
 
 
+
 function mouseUp() {
     // let meme = returnGMeme();
     // meme.selectedTxtIdx = gIndexTemp;
     isMouseDown = false;
 
+}
+
+function handleStart(ev) {
+    isHandleStart = true;
+    console.log('start');
+
+}
+
+function handleEnd(ev) {
+    isHandleStart = false;
+    console.log('end');
+
+}
+
+function handleMove(ev) {
+    console.log('move');
+    onMoveText(ev)
 }
 
 function downloadImg(elLink) {
